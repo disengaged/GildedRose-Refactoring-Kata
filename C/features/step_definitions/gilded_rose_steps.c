@@ -16,17 +16,21 @@ void before_scenario() {
   init_item(&items[0], "+5 Dexterity Vest", 10, 20);
 }
 
-WHEN("^days have passed$") () {
-  int days;
-  for (days = 2; days > 0; days--) {
+WHEN("^(\d+) days have passed$") (int days) {
+  for (; days > 0; days--) {
     update_quality(items, 1);
   }
 }
 
-GIVEN("^the quality is (\d+)$") (int quality) {
+GIVEN("^the quality is (\d+) and days til best by is (\d+)$") (int quality, int days) {
   items[0].quality = quality;
+  items[0].sell_in = days;
 }
 
 THEN("^the quality should be (\d+)$") (int quality) {
   assert_equal(items[0].quality, quality);
+}
+
+THEN("^the days left until best by should be (\d+)$") (int days) {
+  assert_equal(items[0].sell_in, days);
 }
