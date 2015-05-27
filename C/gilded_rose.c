@@ -1,17 +1,17 @@
 #include <string.h>
-#include "GildedRose.h"
+#include "gilded_rose.h"
 
 Item*
-init_item(Item* item, const char *name, int sellIn, int quality)
+init_item(Item* item, const char *name, int sell_in, int quality)
 {
-    item->sellIn = sellIn;
+    item->sell_in = sell_in;
     item->quality = quality;
     item->name = strdup(name);
     
     return item;
 }
 
-void update_quality(Item items[], int size) 
+void update_quality(Item* items, int size) 
 {
     int i;
     
@@ -35,7 +35,7 @@ void update_quality(Item items[], int size)
 
                 if (!strcmp(items[i].name, "Backstage passes to a TAFKAL80ETC concert"))
                 {
-                    if (items[i].sellIn < 11)
+                    if (items[i].sell_in < 11)
                     {
                         if (items[i].quality < 50)
                         {
@@ -43,7 +43,7 @@ void update_quality(Item items[], int size)
                         }
                     }
 
-                    if (items[i].sellIn < 6)
+                    if (items[i].sell_in < 6)
                     {
                         if (items[i].quality < 50)
                         {
@@ -56,10 +56,10 @@ void update_quality(Item items[], int size)
 
         if (strcmp(items[i].name, "Sulfuras, Hand of Ragnaros"))
         {
-            items[i].sellIn = items[i].sellIn - 1;
+            items[i].sell_in = items[i].sell_in - 1;
         }
 
-        if (items[i].sellIn < 0)
+        if (items[i].sell_in < 0)
         {
             if (strcmp(items[i].name, "Aged Brie"))
             {
